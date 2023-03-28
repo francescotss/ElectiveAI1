@@ -1,7 +1,6 @@
 #!/bin/bash
 # USES Python 3.7
-conda env create -f environment.yml
-conda activate eai_v3
+
 
 which python
 which python3
