@@ -23,7 +23,7 @@ class TestBundleAdjustment(SceneWithNoiseFixture):
         self, transform_cam0_wrt_cam1, points_3d_in_camera_frame0, iterations=10, verbose=False
     ):
 
-        self._bundle_adjustment.add_camera_parameters(self._camera0.focal_length_in_pixels, self._camera0.pixel_center)
+        self._bundle_adjustment.add_camera_parameters(self._camera0.focal_length_in_pixels, self._camera0.principal_point)
         # First camera frame0 is regarded as the origin of the world
         self._bundle_adjustment.add_pose(0, g2o.SE3Quat(R=np.identity(3), t=np.zeros(3)), fixed=True)
         # IMPORTANT NOTE: rotation and translation of pose is described as world wrt to pose
