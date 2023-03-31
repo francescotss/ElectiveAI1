@@ -68,6 +68,9 @@ class ImagePlane:
         ]
         # ax.plot(*frame, color="black")
         # ax.plot_wireframe(X, Y, Z, color=color, alpha=alpha)
-        ax.plot(*frame, color="black", linewidth=0.2)
-        ax.plot_surface(X, Y, Z, color="gray", alpha=0.1)
+        
+        self.reference_frame.draw3d()                       # drow the plane reference frame
+        ax.plot_surface(X, Y, Z, color="gray", alpha=0.1)   # draw the image plane panel (grey)
+        ax.plot(*frame, color="black", linewidth=0.1)       # draw the image plane border (black)
+        
         return ax

@@ -1,8 +1,10 @@
 from typing import Optional
+import numpy as np
 
 import matplotlib.pyplot as plt
-import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
+
+from simulator.point import Point, Point3D
 
 from ._utils import draw3d_arrow
 
@@ -14,8 +16,7 @@ class PrincipalAxis:
         self.camera_center = camera_center
         self.camera_dz = camera_dz
         self.f = f
-        self.p = camera_center + f * camera_dz
-
+        self.p = Point3D(camera_center + f * camera_dz)
     def draw3d(
         self,
         head_length: float = 0.3,
@@ -31,9 +32,9 @@ class PrincipalAxis:
             arrow_vector=2.0 * self.f * self.camera_dz,
             head_length=head_length,
             color=color,
-            name="Z",
             ax=ax,
         )
-        ax.scatter3D(*self.p, s=s, color=color)
-        ax.text(*self.p, "p")
+    
+        self.p.draw3d(color="black", s=10)
+       
         return ax

@@ -1,8 +1,12 @@
+from typing import Optional
 import numpy as np
 
 from camera_models import ReferenceFrame, ImagePlane, PrincipalAxis
 from .homogeneous_matrix import HomogeneousMatrix
 from .transform_utils import normalize_homogeneous_coordinates, points_to_homogeneous_coordinates
+
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 #   intrinsic matrix
 #   fx  s   px
@@ -49,7 +53,7 @@ class Camera(object):
         
         
         px, py = self.principal_point
-        origin = self._principal_axis.p - dx*px - dy*py
+        origin = self._principal_axis.p.point - dx*px - dy*py
         width, heigth = px*2, py*2
         self._image_plane = ImagePlane(origin=origin, dx=dx, dy=dy, dz=dz, width=width, heigth=heigth)
         
@@ -171,3 +175,16 @@ class Camera(object):
         tf_wrt_other_camera = other_camera.extrinsic.inv().dot(self.extrinsic.mat)
         return HomogeneousMatrix(tf_wrt_other_camera)
 
+
+    def draw3d(self, color: str = "tab:black", ax: Optional[Axes3D] = None) -> Axes3D:
+        
+
+        if ax is None:
+            ax = plt.gca(projection="3d")
+        
+        self._reference_frame.draw3d()
+        # self._image_plane.draw3d()
+        # self._principal_axis.draw3d()
+        
+        return ax
+    
